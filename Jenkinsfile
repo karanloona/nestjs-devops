@@ -5,6 +5,7 @@ pipeline {
         // Set AWS credentials
         AWS_DEFAULT_REGION = 'eu-north-1'
         ECR_REPO_URL       = '367983454293.dkr.ecr.eu-north-1.amazonaws.com'
+        K8S_NAMESPACE      = 'deel'
     }
 
     stages {
@@ -37,7 +38,18 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    sh 'docker push 367983454293.dkr.ecr.eu-north-1.amazonaws.com/nestjs:latest'
+                    sh 'docker push ${ECR_REPO_URL}/nestjs:latest'
+                }
+            }
+        }
+
+        
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh "kubectl apply -f /home/ubuntu/kubernetes/deploy.yaml"
+                    sh "kubectl apply -f /home/ubuntu/kubernetes/service.yaml"
                 }
             }
         }
