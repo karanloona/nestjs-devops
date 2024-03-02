@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Set AWS credentials
         AWS_DEFAULT_REGION = 'eu-north-1'
         ECR_REPO_URL       = '367983454293.dkr.ecr.eu-north-1.amazonaws.com'
         K8S_NAMESPACE      = 'deel'
@@ -28,7 +27,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Build Docker image
                 script {
                     sh 'docker build -t nestjs .'
                 }

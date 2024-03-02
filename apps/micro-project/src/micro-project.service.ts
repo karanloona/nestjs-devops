@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+export class MicroProjectService {
   getHello(): string {
-    return 'Hello World by deel with auth';
+    return 'Hello World from micro service!';
   }
 }
